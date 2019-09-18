@@ -6,7 +6,7 @@ const checkbox = document.querySelectorAll('.filter-check_checkbox');
 
 checkbox.forEach((elem) => {
     elem.addEventListener('change', function () {
-        if (this.checked){
+        if (this.checked) {
             this.nextElementSibling.classList.add('checked');
         } else {
             this.nextElementSibling.classList.remove('checked');
@@ -16,9 +16,9 @@ checkbox.forEach((elem) => {
 
 /* cart */
 
-const btnCard = document.querySelector('#cart');
-const modalCard = document.querySelector('.cart');
-const btnClose = document.querySelector('.cart-close');
+const btnCard = document.querySelector('#cart'),
+      modalCard = document.querySelector('.cart'),
+      btnClose = document.querySelector('.cart-close');
 
 btnCard.addEventListener('click', () => {
     modalCard.style.display = 'flex';
@@ -29,4 +29,24 @@ btnClose.addEventListener('click', () => {
     document.body.style.overflow = '';
 });
 
+/* add and remove goods from cart */
 
+const cards = document.querySelectorAll('.goods .card'),
+      cartWrapper = document.querySelector('.cart-wrapper'),
+      cartEmpty = document.getElementById('cart-empty'),
+      countGoods = document.querySelector('.counter');
+
+cards.forEach((card) => {
+    const btn = card.querySelector('button');
+    btn.addEventListener('click', () => {
+        const cardClone = card.cloneNode(true);
+        cartWrapper.appendChild(cardClone);
+        cartEmpty.remove();
+        showData();
+    });
+});
+
+function showData() {
+    const cardsCart = cartWrapper.querySelectorAll('.card');
+    countGoods.textContent = cardsCart.length;
+}
