@@ -17,8 +17,8 @@ checkbox.forEach((elem) => {
 /* cart */
 
 const btnCard = document.querySelector('#cart'),
-      modalCard = document.querySelector('.cart'),
-      btnClose = document.querySelector('.cart-close');
+    modalCard = document.querySelector('.cart'),
+    btnClose = document.querySelector('.cart-close');
 
 btnCard.addEventListener('click', () => {
     modalCard.style.display = 'flex';
@@ -32,9 +32,9 @@ btnClose.addEventListener('click', () => {
 /* add and remove goods from cart */
 
 const cards = document.querySelectorAll('.goods .card'),
-      cartWrapper = document.querySelector('.cart-wrapper'),
-      cartEmpty = document.getElementById('cart-empty'),
-      countGoods = document.querySelector('.counter');
+    cartWrapper = document.querySelector('.cart-wrapper'),
+    cartEmpty = document.getElementById('cart-empty'),
+    countGoods = document.querySelector('.counter');
 
 cards.forEach((card) => {
     const btn = card.querySelector('button');
@@ -47,6 +47,15 @@ cards.forEach((card) => {
 });
 
 function showData() {
-    const cardsCart = cartWrapper.querySelectorAll('.card');
+    const cardsCart = cartWrapper.querySelectorAll('.card'),
+        cardsPrice = cartWrapper.querySelectorAll('.card-price'),
+        cardTotal = document.querySelector('.cart total span');
+    let sum = 0;
+
     countGoods.textContent = cardsCart.length;
+    cardsPrice.forEach((cardPrice) => {
+        let price = parseFloat(cardPrice.textContent);
+        sum = sum + price;
+    });
+
 }
