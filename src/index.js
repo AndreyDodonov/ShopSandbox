@@ -17,8 +17,6 @@ function toggleCheckBox() {
     });
 }
 
-toggleCheckBox();
-
 /* cart */
 
 const CartFunction = () => {
@@ -37,8 +35,6 @@ const CartFunction = () => {
     });
 };
 
-CartFunction();
-
 /* add and remove goods from cart */
 
 const CardFunction = () => {
@@ -52,7 +48,7 @@ const CardFunction = () => {
         const btn = card.querySelector('button');
         btn.addEventListener('click', () => {
             const cardClone = card.cloneNode(true);
-            cartWrapper.appendChild(cardClone);        
+            cartWrapper.appendChild(cardClone);
             showData();
 
             const removeBtn = cardClone.querySelector('.btn');
@@ -87,8 +83,57 @@ const CardFunction = () => {
 
 };
 
+/* filter */
+
+const filterFunctions = () => {
+    const cards = document.querySelectorAll('.goods .card'),
+          discountCheckbox = document.getElementById('discount-checkbox'),
+          min = document.getElementById('min'),
+          max = document.getElementById('max');
+    
+    discountCheckbox.addEventListener('click', () => {
+        cards.forEach((elem) => {
+            if (discountCheckbox.checked) {
+                if(!elem.querySelector('.card-sale')) {
+                    elem.parentNode.style.display = 'none';
+                }
+            } else {
+                    elem.parentNode.style.display = '';
+            }
+        });
+    });
+
+    const filterPrice = () => {
+        cards.forEach((elem) => {
+            const cardPrice = document.querySelector('.card-price');
+            let price = parseFloat(cardPrice.textContent);
+            
+            if (price < min.value || price > max.value) {
+                elem.parentNode.style.display = 'none';
+            } 
+           
+            
+            
+        });
+    };
+
+    max.addEventListener('change', filterPrice);
+    min.addEventListener('change', filterPrice);
+
+
+};
+
+/* search */
+
+const searchFunctions = () => {
+
+
+
+};
+
+/* call of functions */
+toggleCheckBox();
+CartFunction();
 CardFunction();
-
-/* filter actions */
-
-
+filterFunctions();
+searchFunctions();
