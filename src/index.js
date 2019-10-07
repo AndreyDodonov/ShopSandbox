@@ -86,24 +86,11 @@ const filterFunctions = () => {
         discountCheckbox = document.getElementById('discount-checkbox'),
         min = document.getElementById('min'),
         max = document.getElementById('max');
-
-    discountCheckbox.addEventListener('click', () => {
-        cards.forEach((elem) => {
-            if (discountCheckbox.checked) {
-                if (!elem.querySelector('.card-sale')) {
-                    elem.parentNode.style.display = 'none';
-                }
-            } else {
-                elem.parentNode.style.display = '';
-            }
-        });
-    });
-
     const filter = () => {
         cards.forEach((elem) => {
             const cardPrice = elem.querySelector('.card-price'),
-                     price = parseFloat(cardPrice.textContent),
-                     discount = elem.querySelector('.card-sale');
+                price = parseFloat(cardPrice.textContent),
+                discount = elem.querySelector('.card-sale');
             if ((min.value && price < min.value) || (max.value && price > max.value)) {
                 elem.parentNode.style.display = 'none';
             } else if (discountCheckbox.checked && !discount) {
@@ -113,7 +100,7 @@ const filterFunctions = () => {
             }
         });
     };
-
+    discountCheckbox.addEventListener('click', filter);
     min.addEventListener('change', filter);
     max.addEventListener('change', filter);
 };
@@ -142,7 +129,30 @@ const searchFunctions = () => {
     search.addEventListener('change', searchEvent);
 };
 
+/* get data from server */
+
+const getData = () => {
+    const goodsWrapper = document.querySelector('.goods');
+    fetch('../db/db.json')
+        .then((response) => {
+            if (response.ok) {
+            return response.json();
+            } else {
+                throw new Error ('Данные не были получены, ошибка: ' + response.status);
+            }
+        })
+        .then (data => console.log(data))
+        .catch((err) => {
+            console.warn(err);
+            goodsWrapper.innerHTML = '<div style = "color:red; font-size:30px"> Упс, что-то пошло не так! </div>';
+        });
+
+};
+
+
 /* call of functions */
+
+getData();
 toggleCheckBox();
 cartFunction();
 cardFunction();
