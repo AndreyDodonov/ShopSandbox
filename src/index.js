@@ -99,11 +99,14 @@ const filterFunctions = () => {
         });
     });
 
-    const filterPrice = () => {
+    const filter = () => {
         cards.forEach((elem) => {
-            const cardPrice = elem.querySelector('.card-price');
-            let price = parseFloat(cardPrice.textContent);
+            const cardPrice = elem.querySelector('.card-price'),
+                     price = parseFloat(cardPrice.textContent),
+                     discount = elem.querySelector('.card-sale');
             if ((min.value && price < min.value) || (max.value && price > max.value)) {
+                elem.parentNode.style.display = 'none';
+            } else if (discountCheckbox.checked && !discount) {
                 elem.parentNode.style.display = 'none';
             } else {
                 elem.parentNode.style.display = '';
@@ -111,8 +114,8 @@ const filterFunctions = () => {
         });
     };
 
-    min.addEventListener('change', filterPrice);
-    max.addEventListener('change', filterPrice);
+    min.addEventListener('change', filter);
+    max.addEventListener('change', filter);
 };
 
 /* search */
