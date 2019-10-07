@@ -128,7 +128,7 @@ const search = document.querySelector('.search-wrapper_input'),
       searchBtn = document.querySelector('.search-btn'),
       cards = document.querySelectorAll('.goods .card');
 
-searchBtn.addEventListener('click', () => {
+const searchEvent = () => {
     const searchText = new RegExp(search.value.trim(), 'i');
     cards.forEach((elem) => {
         const title = elem.querySelector('.card-title');
@@ -138,9 +138,10 @@ searchBtn.addEventListener('click', () => {
             elem.parentNode.style.display = '';
         }
     });
-    
+};
 
-});
+searchBtn.addEventListener('click', searchEvent);
+search.addEventListener('input', searchEvent);
 
 
 
