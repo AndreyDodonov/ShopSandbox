@@ -19,7 +19,7 @@ function toggleCheckBox() {
 
 /* cart */
 
-const CartFunction = () => {
+const cartFunction = () => {
 
     const btnCard = document.querySelector('#cart'),
         modalCard = document.querySelector('.cart'),
@@ -37,7 +37,7 @@ const CartFunction = () => {
 
 /* add and remove goods from cart */
 
-const CardFunction = () => {
+const cardFunction = () => {
 
     const cards = document.querySelectorAll('.goods .card'),
         cartWrapper = document.querySelector('.cart-wrapper'),
@@ -124,6 +124,23 @@ const filterFunctions = () => {
 /* search */
 
 const searchFunctions = () => {
+const search = document.querySelector('.search-wrapper_input'),
+      searchBtn = document.querySelector('.search-btn'),
+      cards = document.querySelectorAll('.goods .card');
+
+searchBtn.addEventListener('click', () => {
+    const searchText = new RegExp(search.value.trim(), 'i');
+    cards.forEach((elem) => {
+        const title = elem.querySelector('.card-title');
+        if(!searchText.test(title.textContent)) {
+            elem.parentNode.style.display = 'none';
+        } else {
+            elem.parentNode.style.display = '';
+        }
+    });
+    
+
+});
 
 
 
@@ -131,7 +148,7 @@ const searchFunctions = () => {
 
 /* call of functions */
 toggleCheckBox();
-CartFunction();
-CardFunction();
+cartFunction();
+cardFunction();
 filterFunctions();
 searchFunctions();
