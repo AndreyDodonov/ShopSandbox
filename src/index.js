@@ -107,19 +107,11 @@ const filterFunctions = () => {
         cards.forEach((elem) => {
             const cardPrice = elem.querySelector('.card-price');
             let price = parseFloat(cardPrice.textContent);
-            // console.log('price: ', price);
-            // console.log(max.value);
-            // console.log(min.value);
-            // console.log('>max' + price>max.value);
-            // console.log('<min' + price<min.value);
-            if (price < min.value || price > max.value) {
+            if ((min.value && price < min.value) || (max.value && price > max.value)) {
                 elem.parentNode.style.display = 'none';
             } else {
                 elem.parentNode.style.display = '';
             }
-           
-            
-            
         });
     };
 
