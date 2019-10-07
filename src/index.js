@@ -3,7 +3,6 @@
 /* checkbox */
 
 function toggleCheckBox() {
-
     const checkbox = document.querySelectorAll('.filter-check_checkbox');
 
     checkbox.forEach((elem) => {
@@ -20,7 +19,6 @@ function toggleCheckBox() {
 /* cart */
 
 const cartFunction = () => {
-
     const btnCard = document.querySelector('#cart'),
         modalCard = document.querySelector('.cart'),
         btnClose = document.querySelector('.cart-close');
@@ -38,7 +36,6 @@ const cartFunction = () => {
 /* add and remove goods from cart */
 
 const cardFunction = () => {
-
     const cards = document.querySelectorAll('.goods .card'),
         cartWrapper = document.querySelector('.cart-wrapper'),
         cartEmpty = document.getElementById('cart-empty'),
@@ -80,25 +77,24 @@ const cardFunction = () => {
             cartWrapper.appendChild(cartEmpty);
         }
     }
-
 };
 
 /* filter */
 
 const filterFunctions = () => {
     const cards = document.querySelectorAll('.goods .card'),
-          discountCheckbox = document.getElementById('discount-checkbox'),
-          min = document.getElementById('min'),
-          max = document.getElementById('max');
-    
+        discountCheckbox = document.getElementById('discount-checkbox'),
+        min = document.getElementById('min'),
+        max = document.getElementById('max');
+
     discountCheckbox.addEventListener('click', () => {
         cards.forEach((elem) => {
             if (discountCheckbox.checked) {
-                if(!elem.querySelector('.card-sale')) {
+                if (!elem.querySelector('.card-sale')) {
                     elem.parentNode.style.display = 'none';
                 }
             } else {
-                    elem.parentNode.style.display = '';
+                elem.parentNode.style.display = '';
             }
         });
     });
@@ -117,34 +113,30 @@ const filterFunctions = () => {
 
     min.addEventListener('change', filterPrice);
     max.addEventListener('change', filterPrice);
-
-
 };
 
 /* search */
 
 const searchFunctions = () => {
-const search = document.querySelector('.search-wrapper_input'),
-      searchBtn = document.querySelector('.search-btn'),
-      cards = document.querySelectorAll('.goods .card');
+    const search = document.querySelector('.search-wrapper_input'),
+        searchBtn = document.querySelector('.search-btn'),
+        cards = document.querySelectorAll('.goods .card');
 
-const searchEvent = () => {
-    const searchText = new RegExp(search.value.trim(), 'i');
-    cards.forEach((elem) => {
-        const title = elem.querySelector('.card-title');
-        if(!searchText.test(title.textContent)) {
-            elem.parentNode.style.display = 'none';
-        } else {
-            elem.parentNode.style.display = '';
-        }
-    });
-};
+    const searchEvent = () => {
+        const searchText = new RegExp(search.value.trim(), 'i');
+        cards.forEach((elem) => {
+            const title = elem.querySelector('.card-title');
+            if (!searchText.test(title.textContent)) {
+                elem.parentNode.style.display = 'none';
+            } else {
+                elem.parentNode.style.display = '';
+            }
+        });
+        search.value = '';
+    };
 
-searchBtn.addEventListener('click', searchEvent);
-search.addEventListener('input', searchEvent);
-
-
-
+    searchBtn.addEventListener('click', searchEvent);
+    search.addEventListener('change', searchEvent);
 };
 
 /* call of functions */
