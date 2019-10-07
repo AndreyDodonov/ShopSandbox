@@ -47,7 +47,6 @@ const cardFunction = () => {
             const cardClone = card.cloneNode(true);
             cartWrapper.appendChild(cardClone);
             showData();
-
             const removeBtn = cardClone.querySelector('.btn');
             removeBtn.textContent = 'Удалить из корзины';
             removeBtn.addEventListener('click', () => {
@@ -111,7 +110,6 @@ const searchFunctions = () => {
     const search = document.querySelector('.search-wrapper_input'),
         searchBtn = document.querySelector('.search-btn'),
         cards = document.querySelectorAll('.goods .card');
-
     const searchEvent = () => {
         const searchText = new RegExp(search.value.trim(), 'i');
         cards.forEach((elem) => {
@@ -133,15 +131,17 @@ const searchFunctions = () => {
 
 const getData = () => {
     const goodsWrapper = document.querySelector('.goods');
-    fetch('../db/db.json')
+    return fetch('../db/db.json')
         .then((response) => {
             if (response.ok) {
-            return response.json();
+                return response.json();
             } else {
-                throw new Error ('Данные не были получены, ошибка: ' + response.status);
+                throw new Error('Данные не были получены, ошибка: ' + response.status);
             }
         })
-        .then (data => renderCards(data))
+        .then((data) => {
+            return data;
+        })
         .catch((err) => {
             console.warn(err);
             goodsWrapper.innerHTML = '<div style = "color:red; font-size:30px"> Упс, что-то пошло не так! </div>';
@@ -153,7 +153,7 @@ const getData = () => {
 
 const renderCards = (data) => {
     const goodsWrapper = document.querySelector('.goods');
-    data.goods.forEach((item) => {        
+    data.goods.forEach((item) => {
         const card = document.createElement('div');
         card.className = 'col-12 col-md-6 col-lg-4 col-xl-3';
         card.innerHTML = `                
@@ -177,9 +177,11 @@ const renderCards = (data) => {
 
 /* call of functions */
 
-getData();
-toggleCheckBox();
-cartFunction();
-cardFunction();
-filterFunctions();
-searchFunctions();
+getData().then((data) => {
+    renderCards(data);
+    toggleCheckBox();
+    cartFunction();
+    cardFunction();
+    filterFunctions();
+    searchFunctions();
+});
