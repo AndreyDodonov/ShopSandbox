@@ -157,7 +157,7 @@ const renderCards = (data) => {
         const card = document.createElement('div');
         card.className = 'col-12 col-md-6 col-lg-4 col-xl-3';
         card.innerHTML = `                
-				<div class="card">
+				<div class="card" data-category="${item.category}">
 					${item.sale ? '<div class="card-sale">🔥Hot Sale🔥</div>' : ''}
 					<div class="card-img-wrapper">
 						<span class="card-img-top"
@@ -174,6 +174,41 @@ const renderCards = (data) => {
     });
 };
 
+/* Catalog */
+
+const renderCatalog = () => {
+    const cards = document.querySelectorAll('.goods .card'),
+        catalogList = document.querySelector('.catalog-list'),
+        catalogBtn = document.querySelector('.catalog-button'),
+        catalogWrapper = document.querySelector('.catalog'),
+        category = new Set();
+
+    cards.forEach((item) => {
+        category.add(item.dataset.category);
+    });
+    category.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        catalogList.appendChild(li);
+    });
+    catalogBtn.addEventListener('click', (event) => {
+        if (catalogWrapper.style.display) {
+            catalogWrapper.style.display = '';
+        } else {
+            catalogWrapper.style.display = 'block';
+        }
+        if (event.target.tagName === 'LI') {
+            cards.forEach((item) => {
+                if (item.dataset.category === event.target.textContent) {
+                    item.parentNode.style.display = '';
+                } else {
+                    item.parentNode.style.display = 'none';
+                }
+            });
+        }
+    });
+};
+
 
 /* call of functions */
 
@@ -184,4 +219,5 @@ getData().then((data) => {
     cardFunction();
     filterFunctions();
     searchFunctions();
+    renderCatalog();
 });
