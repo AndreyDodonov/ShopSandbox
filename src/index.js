@@ -81,27 +81,37 @@ const cardFunction = () => {
 /* filter */
 
 const filterFunctions = () => {
-    const cards = document.querySelectorAll('.goods .card'),
-        discountCheckbox = document.getElementById('discount-checkbox'),
+    const discountCheckbox = document.getElementById('discount-checkbox'),
         min = document.getElementById('min'),
         max = document.getElementById('max');
-    const filter = () => {
-        cards.forEach((elem) => {
-            const cardPrice = elem.querySelector('.card-price'),
-                price = parseFloat(cardPrice.textContent),
-                discount = elem.querySelector('.card-sale');
-            if ((min.value && price < min.value) || (max.value && price > max.value)) {
-                elem.parentNode.style.display = 'none';
-            } else if (discountCheckbox.checked && !discount) {
-                elem.parentNode.style.display = 'none';
-            } else {
-                elem.parentNode.style.display = '';
-            }
-        });
-    };
+
     discountCheckbox.addEventListener('click', filter);
     min.addEventListener('change', filter);
     max.addEventListener('change', filter);
+};
+
+const filter = () => {
+    const cards = document.querySelectorAll('.goods .card'),
+        discountCheckbox = document.getElementById('discount-checkbox'),
+        min = document.getElementById('min'),
+        max = document.getElementById('max'),
+        activeLi = document.querySelector('.catalog-list li.active');
+    cards.forEach((elem) => {
+        const cardPrice = elem.querySelector('.card-price'),
+            price = parseFloat(cardPrice.textContent),
+            discount = elem.querySelector('.card-sale');
+        if ((min.value && price < min.value) || (max.value && price > max.value)) {
+            elem.parentNode.style.display = 'none';
+        } else if (discountCheckbox.checked && !discount) {
+            elem.parentNode.style.display = 'none';
+        } else if (activeLi) {
+            if (elem.dataset.category !== activeLi.textContent) {
+            elem.parentNode.style.display = 'none';
+            }
+        } else {
+            elem.parentNode.style.display = '';
+        }
+    });
 };
 
 /* search */
@@ -176,7 +186,7 @@ const renderCards = (data) => {
 
 /* Catalog */
 
-function renderCatalog () {
+function renderCatalog() {
     const cards = document.querySelectorAll('.goods .card'),
         catalogList = document.querySelector('.catalog-list'),
         catalogBtn = document.querySelector('.catalog-button'),
@@ -215,6 +225,7 @@ function renderCatalog () {
                     e.classList.remove('active');
                 }
             });
+            filter();
         }
     });
 }
@@ -224,10 +235,11 @@ function renderCatalog () {
 
 getData().then((data) => {
     renderCards(data);
+    renderCatalog();
     toggleCheckBox();
     cartFunction();
     cardFunction();
     filterFunctions();
     searchFunctions();
-    renderCatalog();
+
 });
