@@ -176,7 +176,7 @@ const renderCards = (data) => {
 
 /* Catalog */
 
-const renderCatalog = () => {
+function renderCatalog () {
     const cards = document.querySelectorAll('.goods .card'),
         catalogList = document.querySelector('.catalog-list'),
         catalogBtn = document.querySelector('.catalog-button'),
@@ -191,6 +191,9 @@ const renderCatalog = () => {
         li.textContent = item;
         catalogList.appendChild(li);
     });
+
+    const catalogLi = catalogList.querySelectorAll('li');
+
     catalogBtn.addEventListener('click', (event) => {
         if (catalogWrapper.style.display) {
             catalogWrapper.style.display = '';
@@ -205,9 +208,16 @@ const renderCatalog = () => {
                     item.parentNode.style.display = 'none';
                 }
             });
+            catalogLi.forEach((e) => {
+                if (e === event.target) {
+                    e.classList.add('active');
+                } else {
+                    e.classList.remove('active');
+                }
+            });
         }
     });
-};
+}
 
 
 /* call of functions */
