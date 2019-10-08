@@ -1,0 +1,25 @@
+{
+  "name": "learn_shop",
+  "version": "1.0.0",
+  "description": "this my test sandbox ))",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreyDodonov/ShopSandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreyDodonov/ShopSandbox/issues"
+  },
+  "homepage": "https://github.com/AndreyDodonov/ShopSandbox#readme",
+  "devDependencies": {
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {}
+}
